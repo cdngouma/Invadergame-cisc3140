@@ -14,6 +14,8 @@ Project adapted from documentation and projects/code at:
  *               ASSET ATTRIBUTION               *
  * * * * * * * * * * * * * * * * * * * * * * * * *
 
+ Explosion sound effect obtained from https://www.zapsplat.com
+
 
  * * * * * * * * * * * * * * * * * * * * * * * * *
  *              GAME CONFIGURATION               *
@@ -41,6 +43,9 @@ game.state.add('win', winState);
 game.state.add('lose', loseState);
 console.log("DEBUG: states added");
 
+/* variable to store global volume level */
+var volume = 1.0;
+
 /* Load all game assets here, and then continue to the menuState */
 function preload() {
 
@@ -49,7 +54,8 @@ function preload() {
     console.log("DEBUG: physics started");
 
     // Load all game assets
-
+    game.load.audio('explosion1', '/assets/soundfx/zapsplat_explosion_1.mp3');
+    game.load.audio('explosion2', '/assets/soundfx/zapsplat_explosion_2.mp3');
 
     console.log("DEBUG: assets loaded");
     // Start the game at the menu state

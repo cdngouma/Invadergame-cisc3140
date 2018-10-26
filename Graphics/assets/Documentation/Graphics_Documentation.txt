@@ -2,10 +2,10 @@
 *                            Images and Animations                            *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-black background
+# black background
 
 text/icons on menu screens
-	"Press Any Key to Start"
+	# "Press Any Key to Start"
 	Volume control
 
 icons representing lives
@@ -37,10 +37,11 @@ blood splatter image
 
 background music
 
-sound fx when projectile hits an enemy
+# sound fx when projectile hits an enemy
+	# regular enemy - zapsplat_explosion_1.mp3
+	# special enemy - zapsplat_explosion_2.mp3
 
 sound fx when you throw projectile
 
-sound fx when 
 
 losing sound fx (when enemies contact player or reach end of screen)

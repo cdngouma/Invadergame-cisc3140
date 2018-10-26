@@ -1,0 +1,46 @@
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+*                            Images and Animations                            *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+black background
+
+text/icons on menu screens
+	"Press Any Key to Start"
+	Volume control
+
+icons representing lives
+	upper left hand corner
+
+text representing score
+	upper right hand corner
+ 
+player character
+	student - moving animation
+
+projectile image
+	pencil
+	eraser
+
+barrier image
+	4 stages of image breaking
+
+enemies images
+	faculty - moving animation
+	trustee - moving animation
+
+blood splatter image
+
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+*                             Music and Sound FX                              *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+background music
+
+sound fx when projectile hits an enemy
+
+sound fx when you throw projectile
+
+sound fx when 
+
+losing sound fx (when enemies contact player or reach end of screen)

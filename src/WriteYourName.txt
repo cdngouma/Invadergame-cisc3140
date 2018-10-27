@@ -1,7 +1,17 @@
 Hello this is QA, 
 
 
-please write your name if you are in this group,and uplaod it to the server with change to make sure 
+please write your name if you are in this group, and upload it to the server with change to make sure 
 that everyone has the concept of uploading and downloading:
 
-Michael Aleksa
+
+Graphics:
+
+
+
++Michael Aleksa
+
+
+Bacbone:
+
++Chrys Ngouma

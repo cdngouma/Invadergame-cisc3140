@@ -1,5 +1,11 @@
 var playState = {
 
+    preload : function () {
+        // Load game assets
+        game.load.audio('explosion1', '/assets/soundfx/zapsplat_explosion_1.mp3');
+        game.load.audio('explosion2', '/assets/soundfx/zapsplat_explosion_2.mp3');
+    },
+
     create : function () {
         console.log("DEBUG: in play state");
 

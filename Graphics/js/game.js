@@ -46,18 +46,13 @@ console.log("DEBUG: states added");
 /* variable to store global volume level */
 var volume = 1.0;
 
-/* Load all game assets here, and then continue to the menuState */
+/* Start physics engine and then continue to the menuState */
 function preload() {
 
     // Start 'arcade' game physics
     game.physics.startSystem(Phaser.Physics.ARCADE);
     console.log("DEBUG: physics started");
 
-    // Load all game assets
-    game.load.audio('explosion1', '/assets/soundfx/zapsplat_explosion_1.mp3');
-    game.load.audio('explosion2', '/assets/soundfx/zapsplat_explosion_2.mp3');
-
-    console.log("DEBUG: assets loaded");
     // Start the game at the menu state
     game.state.start('menu');
 };

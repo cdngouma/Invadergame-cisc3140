@@ -6,7 +6,8 @@
 
 text/icons on menu screens
 	# "Press Any Key to Start"
-	Volume control
+	# Volume control
+	    needs implementation for volume on/off
 
 icons representing lives
 	upper left hand corner

@@ -2,9 +2,12 @@
 *                            Images and Animations                            *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+800 x 600 screen resolution
+
 # black background
 
 text/icons on menu screens
+	  "Start Game"
 	# "Press Any Key to Start"
 	# Volume control
 	    needs implementation for volume on/off
@@ -23,11 +26,11 @@ projectile image
 	eraser
 
 barrier image
-	4 stages of image breaking
+	4 stages of image breaking - change color for each hit?
 
 enemies images
-	faculty - moving animation
-	trustee - moving animation
+	administrators - 5 different versions
+	trustee (bonus enemy)
 
 blood splatter image
 
@@ -44,5 +47,8 @@ background music
 
 sound fx when you throw projectile
 
+sound fx when enemy throws projectile
 
-losing sound fx (when enemies contact player or reach end of screen)
+'Game Over' sound fx (when enemies contact player or reach end of screen)
+'Level Complete' sound fx
+'You Win' sound fx

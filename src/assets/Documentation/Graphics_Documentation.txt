@@ -15,8 +15,8 @@ text/icons on menu screens
 icons representing lives
 	upper left hand corner
 
-text representing score
-	upper right hand corner
+#text representing score
+	# upper right hand corner
  
 player character
 	student - moving animation

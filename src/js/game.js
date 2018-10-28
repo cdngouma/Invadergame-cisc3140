@@ -49,6 +49,9 @@ var volume = 1.0;
 /* variable to store player's score */
 var score = 0;
 
+/* variable to store current level */
+var level = 0;
+
 /* Start physics engine and then continue to the menuState */
 function preload() {
 

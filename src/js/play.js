@@ -4,6 +4,7 @@ var playState = {
         // Load game assets
         game.load.audio('explosion1', '/assets/soundfx/zapsplat_explosion_1.mp3');
         game.load.audio('explosion2', '/assets/soundfx/zapsplat_explosion_2.mp3');
+        level = 1;
     },
 
     create : function () {
@@ -26,6 +27,15 @@ var playState = {
             align: "right",
             boundsAlignH: "right"
         }).setTextBounds(1, 1);
+
+        // Display the current level
+        levelDisplay = game.add.text(WIDTH/2, 20, 'LEVEL ' + level, {
+            font: '20px Impact',
+            fill: "White",
+            align: "center",
+            boundsAlignH: "center"
+        }).setTextBounds(1, 1);
+
 
     },
 

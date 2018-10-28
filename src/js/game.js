@@ -46,6 +46,9 @@ console.log("DEBUG: states added");
 /* variable to store global volume level */
 var volume = 1.0;
 
+/* variable to store player's score */
+var score = 0;
+
 /* Start physics engine and then continue to the menuState */
 function preload() {
 

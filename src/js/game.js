@@ -27,7 +27,7 @@ Project adapted from documentation and projects/code at:
  * This maps the game to the gameDiv element (for use in HTML file) */
 const WIDTH = 800;
 const HEIGHT = 600;
-game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, 'gameDiv', { preload: preload });
+game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, 'gameDiv', { preload : preload });
 console.log("DEBUG: game created");
 
 /* Add each state of the game - these will control the flow of the game.

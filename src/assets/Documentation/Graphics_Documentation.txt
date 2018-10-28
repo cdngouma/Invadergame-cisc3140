@@ -7,7 +7,7 @@
 # black background
 
 text/icons on menu screens
-	  "Start Game"
+	# "Start Game"
 	# "Press Any Key to Start"
 	# Volume control
 	    needs implementation for volume on/off

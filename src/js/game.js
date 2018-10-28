@@ -25,8 +25,8 @@ Project adapted from documentation and projects/code at:
 /* Create a new instance of the game with our specified height and width:
  * Phaser.AUTO tries WebGL, and then falls back to Canvas
  * This maps the game to the gameDiv element (for use in HTML file) */
-const WIDTH = 1024;
-const HEIGHT = 768;
+const WIDTH = 800;
+const HEIGHT = 600;
 game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, 'gameDiv', { preload: preload });
 console.log("DEBUG: game created");
 

@@ -46,8 +46,39 @@ console.log("DEBUG: states added");
 /* variable to store global volume level */
 var volume = 1.0;
 
-/* variable to store player's score */
-var score = 0;
+/* class to store and manipulate a player's score */
+class Score {
+    constructor(score) {
+        this.score = score;
+    }
+
+    addToScore(x) {
+        this.score += x;
+    }
+
+    getScore() {
+        return this.score.toString();
+    }
+}
+
+/* class to store and manipulate information about a players number of lives */
+class Lives {
+    constructor(lives) {
+        this.lives = lives;
+    }
+
+    addLife() {
+        this.lives++;
+    }
+
+    removeLife() {
+        this.lives--;
+    }
+
+    getLives() {
+        return this.lives;
+    }
+}
 
 /* variable to store current level */
 var level = 0;

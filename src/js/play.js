@@ -4,6 +4,8 @@ var playState = {
         // Load game assets
         game.load.audio('explosion1', '/assets/soundfx/zapsplat_explosion_1.mp3');
         game.load.audio('explosion2', '/assets/soundfx/zapsplat_explosion_2.mp3');
+        score = new Score(0);
+        lives = new Lives(3);
         level = 1;
     },
 
@@ -16,12 +18,11 @@ var playState = {
 
         // create controls
         //      these are currently just set up to test sounds
-        key1 = game.input.keyboard.addKey(Phaser.Keyboard.A);
-        key2 = game.input.keyboard.addKey(Phaser.Keyboard.S);
-        key3 = game.input.keyboard.addKey(Phaser.Keyboard.D);
+        cursors = game.input.keyboard.createCursorKeys();
+        fireButton = game.input.keyboard.addKey(Phaser.Keyboard.CONTROL);
 
         // Display the score
-        scoreDisplay = game.add.text(WIDTH-30, 20, score, {
+        scoreDisplay = game.add.text(WIDTH-30, 20, score.getScore(), {
             font: '20px Impact',
             fill: "White",
             align: "right",
@@ -36,28 +37,36 @@ var playState = {
             boundsAlignH: "center"
         }).setTextBounds(1, 1);
 
+        // Display the current lives
+        levelDisplay = game.add.text(30, 20, 'LIVES:  ' + lives.getLives(), {
+            font: '20px Impact',
+            fill: "White",
+            align: "left",
+            boundsAlignH: "left"
+        }).setTextBounds(1, 1);
 
     },
 
     update : function ()  {
 
         // SOUND TEST
-        if (key1.isDown) {
-            key1.isDown = false;
+        if (cursors.left.isDown) {
+            cursors.left.isDown = false;
             explosion1.play();
         }
-        if (key2.isDown) {
-            key2.isDown = false;
+        if (cursors.right.isDown) {
+            cursors.right.isDown = false;
             explosion2.play();
         }
 
         // UPDATE SCORE TEST
-        score++;
-        scoreDisplay.text = score;
+        score.addToScore(1);  // add 1 to score each frame
+        scoreDisplay.text = score.getScore(); // display new score
     },
 
     // Continue to the 'win' state
     win : function () {
         game.state.start('win');
-    }
+    },
+
 };

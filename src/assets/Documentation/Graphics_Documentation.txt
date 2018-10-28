@@ -8,16 +8,21 @@
 
 text/icons on menu screens
 	# "Start Game"
-	# "Press Any Key to Start"
+	    implement 'click to start'
 	# Volume control
 	    needs implementation for volume on/off
+	# instructions
+	    add scoring and implement click to show instructions
 
 icons representing lives
-	upper left hand corner
+	# upper left hand corner
 
-#text representing score
+# text representing score
 	# upper right hand corner
- 
+
+# text displaying current level
+ 	# top center
+
 player character
 	student - moving animation
 

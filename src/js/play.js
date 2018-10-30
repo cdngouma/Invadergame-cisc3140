@@ -28,7 +28,6 @@ var playState = {
         player.y = HEIGHT - 20;
         player.anchor.setTo(0.5, 0.5);
         game.physics.enable(player, Phaser.Physics.ARCADE);
-        bounds
         player.body.collideWorldBounds = true;
 
 

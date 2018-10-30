@@ -1,5 +1,6 @@
 body {
-    background-color: white;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 p {
@@ -10,9 +11,11 @@ p {
 #gameDiv {
     display: table;
     margin: 0 auto;
+    padding-top: 30px;
 }
 
 .header {
     display: table;
     margin: 0 auto;
+    padding-top: 20px;
 }

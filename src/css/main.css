@@ -14,7 +14,9 @@ p {
     border-color: darkred;
 }
 
+
 .header {
+    zoom: 1.8;
     display: table;
     margin: 0 auto;
     padding-top: 20px;

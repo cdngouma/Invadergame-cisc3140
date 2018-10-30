@@ -46,8 +46,7 @@ var playState = {
             b.outOfBoundsKill = true;
         }
 
-        // create controls
-        // these are currently just set up to test sounds
+        // create controls for player character
         cursors = game.input.keyboard.createCursorKeys();
         fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 

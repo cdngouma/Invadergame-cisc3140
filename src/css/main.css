@@ -6,3 +6,13 @@ p {
     color: black;
     margin-left: 20px;
 }
+
+#gameDiv {
+    display: table;
+    margin: 0 auto;
+}
+
+.header {
+    display: table;
+    margin: 0 auto;
+}

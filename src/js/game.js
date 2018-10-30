@@ -1,3 +1,6 @@
+/* THIS IS THE SPACE INVADERS GAME FOR CISC 3140 FALL 2018 /*
+/* THIS GAME USES THE PHASER JAVASCRIPT FRAMEWORK FOUND AT PHASER.IO */
+
 /*
  * * * * * * * * * * * * * * * * * * * * * * * *
  *              NOTES AND TUTORIALS              *

@@ -1,6 +1,5 @@
 body {
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: black;
 }
 
 p {
@@ -11,11 +10,13 @@ p {
 #gameDiv {
     display: table;
     margin: 0 auto;
-    padding-top: 30px;
+    border-style: solid;
+    border-color: darkred;
 }
 
 .header {
     display: table;
     margin: 0 auto;
     padding-top: 20px;
+    padding-bottom: 30px;
 }

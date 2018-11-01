@@ -2,8 +2,8 @@ var menuState = {
 
     preload : function () {
         // load assets for menu
-        game.load.image('volumeOn', '/assets/sprites/volume_on.png');
-        game.load.image('volumeOff', '/assets/sprites/volume_off.png');
+        game.load.image('volumeOn', 'assets/sprites/volume_on.png');
+        game.load.image('volumeOff', 'assets/sprites/volume_off.png');
 
     },
 
@@ -25,7 +25,7 @@ var menuState = {
         game.add.text(WIDTH/2, (HEIGHT/5) * 2, 'Instructions: \n' +
             'Move left and right using arrow keys \n' +
             'Shoot projectile with CTRL key \n' +
-            'Click to start', {
+            'Press any key to start', {
             font: '20px Impact',
             fill: "White",
             align: "center",

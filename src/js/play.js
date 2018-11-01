@@ -63,14 +63,12 @@ var playState = {
         facultyBullets = game.add.group();
         facultyBullets.enableBody = true;
         facultyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-        // adding bullets to group
-        for (let i = 0; i < numBullets; i++){
-            // randomly pick a image for each bullet
-            var b = facultyBullets.create(0, 0, 'faculty-bullet0');
-            b.anchor.setTo(0.5, 1);
-            b.checkWorldBounds = true;
-            b.outOfBoundsKill = true;
-        }
+        // adding enemy bullets to group
+        facultyBullets.createMultiple(numBullets, 'faculty-bullet0');
+        facultyBullets.setAll('anchor.setTo', 0.5);
+        facultyBullets.setAll('anchor.y', 1);
+        facultyBullets.setAll('outOfBoundsKill', true);
+        facultyBullets.setAll('checkWorldBounds', true);
 
         //  The faculty members
         facultyMembers = game.add.group();
@@ -120,10 +118,6 @@ var playState = {
             } else if(cursors.right.isDown){
                 player.body.velocity.x = playerSpeed;
             }
-
-            // if player is out of bound, it appers on the other sides
-            if(player.x < 0) player.x = WIDTH;
-            else if(player.x > WIDTH) player.x = 0;
 
             if(fireButton.isDown){
                 fireBullet();
@@ -206,12 +200,11 @@ function createFacultyMembers(){
     }, interval, Phaser.Easing.Linear.None, true, 0, 1000, true);
 }
 
-/** TODO: fix bug -- some enemy bullets disapear before reaching the player **/
-
 function facultyShoots () {
-    var rate = 2000; // rate at which faculty members fire (in ms^-1)
+    var bulletSpeed = 120;
+    var rate = 1000; // rate at which faculty members fire (in ms^-1)
     //  Grab the first bullet we can from the pool
-    facultyBullet = facultyBullets.getFirstExists(true);
+    facultyBullet = facultyBullets.getFirstExists(false);
 
     livingFaculties.length = 0;
 
@@ -226,7 +219,7 @@ function facultyShoots () {
         // fire the bullet from this faculty member
         facultyBullet.reset(shooter.body.x, shooter.body.y);
 
-        facultyBullet.body.velocity.y = 100;
+        game.physics.arcade.moveToObject(facultyBullet, player, bulletSpeed);
         firingTimer = game.time.now + rate;
     }
 }

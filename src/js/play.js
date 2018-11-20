@@ -24,6 +24,8 @@ var playState = {
         game.load.image('trustee', 'assets/sprites/trustee.png');
         // load faculty bullet
         game.load.image('faculty-bullet0', 'assets/sprites/faculty_bullet0.png');
+        //background
+        game.load.image('background', 'css/css_image/bk_college.png');
 
         score = new Score(0);
         lives = new Lives(3);
@@ -32,6 +34,8 @@ var playState = {
 
     create : function () {
         console.log("DEBUG: in play state");
+
+        this.add.image(0,0,'background');
 
         // create sounds for game
         explosion1 = new Phaser.Sound(game, 'explosion1', volume, false);
@@ -49,6 +53,10 @@ var playState = {
             b.anchor.setTo(0.5, 1.5);
             b.checkWorldBounds = true;
             b.outOfBoundsKill = true;
+
+            b.scale.x=0.5;
+            b.scale.y=0.5;
+
         }
 
         // create player
@@ -63,6 +71,7 @@ var playState = {
         facultyBullets = game.add.group();
         facultyBullets.enableBody = true;
         facultyBullets.physicsBodyType = Phaser.Physics.ARCADE;
+
         // adding enemy bullets to group
         facultyBullets.createMultiple(numBullets, 'faculty-bullet0');
         facultyBullets.setAll('anchor.setTo', 0.5);
@@ -104,6 +113,7 @@ var playState = {
             boundsAlignH: "left"
         }).setTextBounds(1, 1);
 
+
     },
 
     update : function ()  {
@@ -126,6 +136,10 @@ var playState = {
             if (game.time.now > firingTimer) {
                 facultyShoots();
             }
+
+            //run collision
+
+            game.physics.arcade.overlap(bullets, facultyMembers, collisionHandler, null, this);
         }
 
         // SOUND TEST
@@ -141,7 +155,7 @@ var playState = {
         }
 
         // UPDATE SCORE TEST
-        score.addToScore(1);  // add 1 to score each frame
+        //score.addToScore(1);  // add 1 to score each frame
         scoreDisplay.text = score.getScore(); // display new score
     },
 
@@ -200,6 +214,7 @@ function createFacultyMembers(){
     }, interval, Phaser.Easing.Linear.None, true, 0, 1000, true);
 }
 
+
 function facultyShoots () {
     var bulletSpeed = 120;
     var rate = 1000; // rate at which faculty members fire (in ms^-1)
@@ -222,4 +237,14 @@ function facultyShoots () {
         game.physics.arcade.moveToObject(facultyBullet, player, bulletSpeed);
         firingTimer = game.time.now + rate;
     }
+}
+
+function collisionHandler(bullet,facultyMembers){
+    bullet.kill();
+    facultyMembers.kill();
+
+    if(facultyMembers.kill()){
+        score.addToScore(20);
+    }
+
 }

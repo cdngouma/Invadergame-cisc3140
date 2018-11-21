@@ -138,8 +138,11 @@ var playState = {
             }
 
             //run collision
-
             game.physics.arcade.overlap(bullets, facultyMembers, collisionHandler, null, this);
+
+            //player collision
+            game.physics.arcade.overlap(facultyBullets , player, playerCollision, null,this )
+
         }
 
         // SOUND TEST
@@ -169,7 +172,7 @@ var playState = {
 function fireBullet(){
     var bulletSpeed = 400;
 
-    if(game.time.now > bulletTime){
+    if(game.time.now  > bulletTime ){
         // create a bullet then
         bullet = bullets.getFirstExists(false);
 
@@ -191,7 +194,7 @@ function createFacultyMembers(){
     for(y = 0; y < ROWS; y++){
         for(x = 0; x <  MEMBERS_PER_ROW; x++){
             var member;
-            // memnber.name set a name each element of each row. This is needed to determine score
+            // member.name set a name each element of each row. This is needed to determine score
             if(y === 0 && x === bossPos){
                 member = facultyMembers.create(x * 60, y * 60 + 50, 'trustee');
                 member.name = 'trustee';
@@ -204,7 +207,7 @@ function createFacultyMembers(){
         }
     }
 
-    // group intial postition
+    // group initial position
     facultyMembers.x = 50;
     facultyMembers.y = 50;
 
@@ -239,12 +242,23 @@ function facultyShoots () {
     }
 }
 
+
+    //Function to handle collisions between bullets and faculty members
 function collisionHandler(bullet,facultyMembers){
     bullet.kill();
     facultyMembers.kill();
 
+    // adds to the score when a faculty members dies
     if(facultyMembers.kill()){
         score.addToScore(20);
     }
 
 }
+
+//function to detect if player is hit
+function playerCollision(facultyBullets , player) {
+    facultyBullets.kill();
+    player.kill();
+    lives--;
+}
+

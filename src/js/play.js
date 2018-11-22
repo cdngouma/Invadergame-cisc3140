@@ -124,9 +124,11 @@ var playState = {
             player.body.velocity.setTo(0, 0);
             // move player around
             if(cursors.left.isDown){
-                player.body.velocity.x = -playerSpeed;
+                player.body.velocity.x = -playerSpeed; // move sprite to left
+                player.scale.x = -1;    // face sprite to left
             } else if(cursors.right.isDown){
-                player.body.velocity.x = playerSpeed;
+                player.body.velocity.x = playerSpeed; // move sprite to right
+                player.scale.x = 1;    // face sprite to right
             }
 
             // fire bullet

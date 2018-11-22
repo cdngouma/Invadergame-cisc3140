@@ -84,7 +84,7 @@ var playState = {
         facultyMembers = game.add.group();
         facultyMembers.enableBody = true;
         facultyMembers.physicsBodyType = Phaser.Physics.ARCADE;
-        createFacultyMembers();
+        this.createFacultyMembers();
 
         // create controls for player character
         cursors = game.input.keyboard.createCursorKeys();
@@ -131,19 +131,19 @@ var playState = {
 
             // fire bullet
             if(fireButton.isDown){
-                fireBullet();
+                this.fireBullet();
             }
 
             // fire faculty bullet
             if (game.time.now > firingTimer) {
-                facultyShoots();
+                this.facultyShoots();
             }
 
             // run collision detection for faculty members and player bullets
-            game.physics.arcade.overlap(bullets, facultyMembers, collisionHandler, null, this);
+            game.physics.arcade.overlap(bullets, facultyMembers, this.collisionHandler, null, this);
 
             // run collision detection for player character and faculty bullets
-            game.physics.arcade.overlap(facultyBullets , player, playerCollision, null,this )
+            game.physics.arcade.overlap(facultyBullets , player, this.playerCollision, null,this )
 
         }
 
@@ -168,97 +168,99 @@ var playState = {
         game.state.start('win');
     },
 
-};
+    fireBullet : function() {
+        var bulletSpeed = 400;
 
-function fireBullet(){
-    var bulletSpeed = 400;
+        if(game.time.now  > bulletTime ){
+            // create a bullet then
+            bullet = bullets.getFirstExists(false);
 
-    if(game.time.now  > bulletTime ){
-        // create a bullet then
-        bullet = bullets.getFirstExists(false);
-
-        if (bullet){
-            // fire it
-            bullet.reset(player.x, player.y + 8);
-            bullet.body.velocity.y = -bulletSpeed;
-            bulletTime = game.time.now + 200;
-        }
-    }
-}
-
-function createFacultyMembers(){
-    const MEMBERS_PER_ROW = 10;
-    const ROWS = 4;
-    let interval = 1000;    // interval in which faculty members move horizontally (in ms)
-    var bossPos = Math.floor(Math.random() * (MEMBERS_PER_ROW-1));  // position of the trustee in upmost row
-
-    for(y = 0; y < ROWS; y++){
-        for(x = 0; x <  MEMBERS_PER_ROW; x++){
-            var member;
-            // member.name set a name each element of each row. This is needed to determine score
-            if(y === 0 && x === bossPos){
-                member = facultyMembers.create(x * 60, y * 60 + 50, 'trustee');
-                member.name = 'trustee';
-            }else{
-                member = facultyMembers.create(x * 60, y * 60 + 50, 'faculty-r' + y);
-                member.name = y+1;
+            if (bullet){
+                // fire it
+                bullet.reset(player.x, player.y + 8);
+                bullet.body.velocity.y = -bulletSpeed;
+                bulletTime = game.time.now + 200;
             }
-            member.anchor.setTo(0.5, 0.5);
-            member.body.moves = false;
+        }
+    },
+
+    createFacultyMembers : function() {
+        const MEMBERS_PER_ROW = 10;
+        const ROWS = 4;
+        let interval = 1000;    // interval in which faculty members move horizontally (in ms)
+        var bossPos = Math.floor(Math.random() * (MEMBERS_PER_ROW-1));  // position of the trustee in upmost row
+
+        for(y = 0; y < ROWS; y++){
+            for(x = 0; x <  MEMBERS_PER_ROW; x++){
+                var member;
+                // member.name set a name each element of each row. This is needed to determine score
+                if(y === 0 && x === bossPos){
+                    member = facultyMembers.create(x * 60, y * 60 + 50, 'trustee');
+                    member.name = 'trustee';
+                }else{
+                    member = facultyMembers.create(x * 60, y * 60 + 50, 'faculty-r' + y);
+                    member.name = y+1;
+                }
+                member.anchor.setTo(0.5, 0.5);
+                member.body.moves = false;
+            }
+        }
+
+        // group initial position
+        facultyMembers.x = 50;
+        facultyMembers.y = 50;
+
+        // make the faculty members move horizontally
+        var tween = game.add.tween(facultyMembers).to({
+            x: 200  // how far faculty members move horizontally
+        }, interval, Phaser.Easing.Linear.None, true, 0, 1000, true);
+    },
+
+    facultyShoots : function() {
+        var bulletSpeed = 120;
+        var rate = 1000; // rate at which faculty members fire (in ms^-1)
+        //  Grab the first bullet we can from the pool
+        facultyBullet = facultyBullets.getFirstExists(false);
+
+        livingFaculties.length = 0;
+
+        facultyMembers.forEachAlive(function(faculty){
+            livingFaculties.push(faculty);
+        });
+
+        if (facultyBullet && livingFaculties.length > 0) {
+
+            var random = game.rnd.integerInRange(0, livingFaculties.length-1);
+            var shooter = livingFaculties[random];
+            // fire the bullet from this faculty member
+            facultyBullet.reset(shooter.body.x, shooter.body.y);
+
+            game.physics.arcade.moveToObject(facultyBullet, player, bulletSpeed);
+            firingTimer = game.time.now + rate;
+        }
+    },
+
+
+    // Function to handle collisions between bullets and faculty members
+    collisionHandler : function(bullet, facultyMember) {
+        var scores = [100, 80, 60, 40, 10, 5];  // array of scores for each row from to to bottom
+                                                // index 0 --> trustee
+        let name = facultyMember.name;
+        bullet.kill();
+        facultyMember.kill();
+
+        // adds to the score when a faculty members dies
+        score.addToScore(facultyMember.name === 'trustee' ? scores[0] : scores[parseInt(name)]);
+    },
+
+    //function to detect if player is hit
+    playerCollision : function(facultyBullets , player) {
+        facultyBullets.kill();
+        player.kill();
+        lives--;
+        if (lives === 0) {
+
         }
     }
-
-    // group initial position
-    facultyMembers.x = 50;
-    facultyMembers.y = 50;
-
-    // make the faculty members move horizontally
-    var tween = game.add.tween(facultyMembers).to({
-        x: 200  // how far faculty members move horizontally
-    }, interval, Phaser.Easing.Linear.None, true, 0, 1000, true);
-}
-
-
-function facultyShoots () {
-    var bulletSpeed = 120;
-    var rate = 1000; // rate at which faculty members fire (in ms^-1)
-    //  Grab the first bullet we can from the pool
-    facultyBullet = facultyBullets.getFirstExists(false);
-
-    livingFaculties.length = 0;
-
-    facultyMembers.forEachAlive(function(faculty){
-        livingFaculties.push(faculty);
-    });
-
-    if (facultyBullet && livingFaculties.length > 0) {
-
-        var random = game.rnd.integerInRange(0, livingFaculties.length-1);
-        var shooter = livingFaculties[random];
-        // fire the bullet from this faculty member
-        facultyBullet.reset(shooter.body.x, shooter.body.y);
-
-        game.physics.arcade.moveToObject(facultyBullet, player, bulletSpeed);
-        firingTimer = game.time.now + rate;
-    }
-}
-
-
-// Function to handle collisions between bullets and faculty members
-function collisionHandler(bullet, facultyMember){
-    var scores = [100, 80, 60, 40, 10, 5];  // array of scores for each row from to to bottom
-                                            // index 0 --> trustee
-    let name = facultyMember.name;
-    bullet.kill();
-    facultyMember.kill();
-
-    // adds to the score when a faculty members dies
-    score.addToScore(facultyMember.name === 'trustee' ? scores[0] : scores[parseInt(name)]);
-}
-
-//function to detect if player is hit
-function playerCollision(facultyBullets , player) {
-    facultyBullets.kill();
-    player.kill();
-}
+};
 

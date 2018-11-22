@@ -200,7 +200,7 @@ function createFacultyMembers(){
                 member.name = 'trustee';
             }else{
                 member = facultyMembers.create(x * 60, y * 60 + 50, 'faculty-r' + y);
-                member.name = 'row-' + x;
+                member.name = y+1;
             }
             member.anchor.setTo(0.5, 0.5);
             member.body.moves = false;
@@ -244,21 +244,20 @@ function facultyShoots () {
 
 
     //Function to handle collisions between bullets and faculty members
-function collisionHandler(bullet,facultyMembers){
+function collisionHandler(bullet, facultyMember){
+    var scores = [100, 80, 60, 40, 10, 5];  // array of scores for each row from to to bottom
+                                            // index 0 --> trustee
+    let name = facultyMember.name;
     bullet.kill();
-    facultyMembers.kill();
+    facultyMember.kill();
 
     // adds to the score when a faculty members dies
-    if(facultyMembers.kill()){
-        score.addToScore(20);
-    }
-
+    score.addToScore(facultyMember.name === 'trustee' ? scores[0] : scores[parseInt(name)]);
 }
 
 //function to detect if player is hit
 function playerCollision(facultyBullets , player) {
     facultyBullets.kill();
     player.kill();
-    lives--;
 }
 

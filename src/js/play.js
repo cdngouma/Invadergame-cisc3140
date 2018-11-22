@@ -107,7 +107,7 @@ var playState = {
         }).setTextBounds(1, 1);
 
         // Display the current lives
-        levelDisplay = game.add.text(30, 20, 'LIVES:  ' + lives.getLives(), {
+        livesDisplay = game.add.text(30, 20, 'LIVES:  ' + lives.getLives(), {
             font: '20px Impact',
             fill: "White",
             align: "left",
@@ -145,29 +145,22 @@ var playState = {
             game.physics.arcade.overlap(bullets, facultyMembers, this.collisionHandler, null, this);
 
             // run collision detection for player character and faculty bullets
-            game.physics.arcade.overlap(facultyBullets , player, this.playerCollision, null,this )
+            game.physics.arcade.overlap(facultyBullets , player, this.playerCollision, null, this )
 
         }
 
-        // // SOUND TEST
-        // soundBtn1 = game.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1);
-        // soundBtn2 = game.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_0);
-        // if (soundBtn1.isDown) {
-        //     cursors.left.isDown = false;
-        //     explosion1.play();
-        // }
-        // if (soundBtn2.isDown) {
-        //     cursors.right.isDown = false;
-        //     explosion2.play();
-        // }
-
         // UPDATE SCORE
         scoreDisplay.text = score.getScore(); // display new score
+        livesDisplay.text = 'LIVES:  ' + lives.getLives(); // display current lives
     },
 
     // Continue to the 'win' state
     win : function () {
         game.state.start('win');
+    },
+
+    lose : function () {
+        game.state.start('lose');
     },
 
     fireBullet : function() {
@@ -199,7 +192,7 @@ var playState = {
                 if(y === 0 && x === bossPos){
                     member = facultyMembers.create(x * 60, y * 60 + 50, 'trustee');
                     member.name = 'trustee';
-                }else{
+                } else {
                     member = facultyMembers.create(x * 60, y * 60 + 50, 'faculty-r' + y);
                     member.name = y+1;
                 }
@@ -244,24 +237,25 @@ var playState = {
 
 
     // Function to handle collisions between bullets and faculty members
-    collisionHandler : function(bullet, facultyMember) {
+    collisionHandler : function () {
         var scores = [100, 80, 60, 40, 10, 5];  // array of scores for each row from to to bottom
                                                 // index 0 --> trustee
-        let name = facultyMember.name;
+        let name = facultyMembers.name;
         bullet.kill();
-        facultyMember.kill();
+        facultyMembers.kill();
+        explosion1.play();
 
         // adds to the score when a faculty members dies
         score.addToScore(facultyMember.name === 'trustee' ? scores[0] : scores[parseInt(name)]);
     },
 
     //function to detect if player is hit
-    playerCollision : function(facultyBullets , player) {
-        facultyBullets.kill();
+    playerCollision : function() {
+        facultyBullets.killAll();
         player.kill();
-        lives--;
-        if (lives === 0) {
-
+        lives.removeLife();
+        if (lives.getLives() === 0) {
+            this.lose();
         }
     }
 };

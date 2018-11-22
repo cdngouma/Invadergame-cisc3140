@@ -7,7 +7,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * *
 
 Project adapted from documentation and projects/code at:
-    https://phaser.io/docs/2.6.2/index
+    https://photonstorm.github.io/phaser-ce/index.html  // OFFICIAL DOCUMENTATION - CHECK HERE FIRST!
     https://phaser.io/tutorials/making-your-first-phaser-2-game/index
     https://www.phaser.io/news/2015/06/using-states-tutorial
     https://www.phaser.io/examples
@@ -31,6 +31,7 @@ Project adapted from documentation and projects/code at:
 /* Create a new instance of the game with our specified height and width:
  * Phaser.AUTO tries WebGL, and then falls back to Canvas
  * This maps the game to the gameDiv element (for use in HTML file) */
+
 const WIDTH = 800;
 const HEIGHT = 600;
 game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, 'gameDiv', { preload : preload });

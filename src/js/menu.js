@@ -24,7 +24,7 @@ var menuState = {
         // move location of text on canvas with math on WIDTH and HEIGHT constants
         game.add.text(WIDTH/2, (HEIGHT/5) * 2, 'Instructions: \n' +
             'Move left and right using arrow keys \n' +
-            'Shoot projectile with CTRL key \n' +
+            'Shoot projectile with SPACE key \n' +
             'Press any key to start', {
             font: '20px Impact',
             fill: "White",

@@ -16,7 +16,7 @@ var playState = {
         game.load.image('bullet0', 'assets/sprites/bullet0.png');
         game.load.image('bullet1', 'assets/sprites/bullet1.png');
         game.load.image('bullet2', 'assets/sprites/bullet3.png');
-        // load faculty memeber sprites
+        // load faculty member sprites
         game.load.image('faculty-r0', 'assets/sprites/faculty-r0.png');
         game.load.image('faculty-r1', 'assets/sprites/faculty-r1.png');
         game.load.image('faculty-r2', 'assets/sprites/faculty-r2.png');

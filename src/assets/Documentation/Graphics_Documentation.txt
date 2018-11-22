@@ -24,17 +24,16 @@ icons representing lives
  	# top center
 
 player character
-	student - moving animation
+	# student - moving animation
 
 projectile image
-	pencil
-	eraser
+	# pencil
 
 barrier image
 	4 stages of image breaking - change color for each hit?
 
 enemies images
-	administrators - 5 different versions
+	# administrators - 4 different versions
 	trustee (bonus enemy)
 
 blood splatter image

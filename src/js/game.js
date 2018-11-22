@@ -18,6 +18,9 @@ Project adapted from documentation and projects/code at:
  * * * * * * * * * * * * * * * * * * * * * * * * *
 
  Explosion sound effect obtained from https://www.zapsplat.com
+ comeandfindme.ogg - Background Music - Eric Skiff - Come and Find Me - Resistor Anthems - Available at http://EricSkiff.com/music
+ dramatic_piano_phrase.ogg - Lose Music - Alexander - Dramatic Piano Phrase - Available at http://www.orangefreesounds.com/dramatic-piano-phrase/
+ Player sprite adapted from "Classic Hero" Sprite: https://opengameart.org/content/classic-hero
 
 
  * * * * * * * * * * * * * * * * * * * * * * * * *

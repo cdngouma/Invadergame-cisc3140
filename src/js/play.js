@@ -35,6 +35,7 @@ var playState = {
     create : function () {
         console.log("DEBUG: in play state");
 
+        // add background image
         this.add.image(0,0,'background');
 
         // create sounds for game
@@ -67,7 +68,7 @@ var playState = {
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.body.collideWorldBounds = true;
 
-        //  create a bullet group faculty members
+        //  create a bullet group for faculty members
         facultyBullets = game.add.group();
         facultyBullets.enableBody = true;
         facultyBullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -79,7 +80,7 @@ var playState = {
         facultyBullets.setAll('outOfBoundsKill', true);
         facultyBullets.setAll('checkWorldBounds', true);
 
-        //  The faculty members
+        //  Create faculty members
         facultyMembers = game.add.group();
         facultyMembers.enableBody = true;
         facultyMembers.physicsBodyType = Phaser.Physics.ARCADE;
@@ -118,47 +119,47 @@ var playState = {
 
     update : function ()  {
         var playerSpeed = 200;
-        // MOVE PLAYER AROUND
         if(player.alive){
             // stop player then check for movement keys
             player.body.velocity.setTo(0, 0);
-
+            // move player around
             if(cursors.left.isDown){
                 player.body.velocity.x = -playerSpeed;
             } else if(cursors.right.isDown){
                 player.body.velocity.x = playerSpeed;
             }
 
+            // fire bullet
             if(fireButton.isDown){
                 fireBullet();
             }
 
+            // fire faculty bullet
             if (game.time.now > firingTimer) {
                 facultyShoots();
             }
 
-            //run collision
+            // run collision detection for faculty members and player bullets
             game.physics.arcade.overlap(bullets, facultyMembers, collisionHandler, null, this);
 
-            //player collision
+            // run collision detection for player character and faculty bullets
             game.physics.arcade.overlap(facultyBullets , player, playerCollision, null,this )
 
         }
 
-        // SOUND TEST
-        soundBtn1 = game.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1);
-        soundBtn2 = game.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_0);
-        if (soundBtn1.isDown) {
-            cursors.left.isDown = false;
-            explosion1.play();
-        }
-        if (soundBtn2.isDown) {
-            cursors.right.isDown = false;
-            explosion2.play();
-        }
+        // // SOUND TEST
+        // soundBtn1 = game.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1);
+        // soundBtn2 = game.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_0);
+        // if (soundBtn1.isDown) {
+        //     cursors.left.isDown = false;
+        //     explosion1.play();
+        // }
+        // if (soundBtn2.isDown) {
+        //     cursors.right.isDown = false;
+        //     explosion2.play();
+        // }
 
-        // UPDATE SCORE TEST
-        //score.addToScore(1);  // add 1 to score each frame
+        // UPDATE SCORE
         scoreDisplay.text = score.getScore(); // display new score
     },
 
@@ -243,7 +244,7 @@ function facultyShoots () {
 }
 
 
-    //Function to handle collisions between bullets and faculty members
+// Function to handle collisions between bullets and faculty members
 function collisionHandler(bullet, facultyMember){
     var scores = [100, 80, 60, 40, 10, 5];  // array of scores for each row from to to bottom
                                             // index 0 --> trustee

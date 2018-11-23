@@ -5,6 +5,7 @@ var facultyMembers;
 var firingTimer = 0;    // set to regulate faculty members firing rate
 var livingFaculties = [];
 var bullets;
+var tweenCounter = 0;
 
 var playState = {
 
@@ -61,7 +62,6 @@ var playState = {
 
             playerBullets.scale.x=0.5;
             playerBullets.scale.y=0.5;
-
         }
 
         // create player
@@ -75,8 +75,8 @@ var playState = {
         // adding enemy bullets to group
         var facNumBullets = 40;
         facultyBullets.createMultiple(facNumBullets, 'faculty-bullet0');
-        facultyBullets.setAll('anchor.setTo', 0.5);
-        facultyBullets.setAll('anchor.y', 1);
+        facultyBullets.setAll('anchor.setTo', 0);
+        facultyBullets.setAll('anchor.y', 0);
         facultyBullets.setAll('outOfBoundsKill', true);
         facultyBullets.setAll('checkWorldBounds', true);
 
@@ -208,6 +208,17 @@ var playState = {
         // x is how far faculty members move horizontally, y is vertically
         var facultyTween = game.add.tween(facultyMembers)
             .to({ x: 200 }, interval, Phaser.Easing.Linear.None, true, 0, 1000, true);
+
+        facultyTween.onRepeat.add(onLoop, this);
+
+        function onLoop() {
+            descendAmount = 15;
+            tweenCounter++;
+            if (tweenCounter === 4) {
+                facultyMembers.y += descendAmount;
+                tweenCounter = 0;
+            }
+        }
     },
 
     facultyShoots : function() {

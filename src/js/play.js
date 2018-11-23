@@ -151,6 +151,12 @@ var playState = {
         // UPDATE SCORE
         scoreDisplay.text = score.getScore(); // display new score
         livesDisplay.text = 'LIVES:  ' + lives.getLives(); // display current lives
+
+        // Check to see if player has won
+        if (this.checkEnemyCount() === 0) {
+            bgmusic.stop();
+            this.win();
+        }
     },
 
     // Continue to the 'win' state
@@ -285,6 +291,15 @@ var playState = {
         player.anchor.setTo(0.5, 0.5);
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.body.collideWorldBounds = true;
+    },
+
+    checkEnemyCount : function() {
+        var livingEnemies = [];
+        facultyMembers.forEachAlive(function () {
+            // put every living enemy in an array
+            livingEnemies.push(facultyMembers);
+        });
+        return livingEnemies.length;
     }
 };
 

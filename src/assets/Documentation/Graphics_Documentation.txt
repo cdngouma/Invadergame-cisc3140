@@ -34,7 +34,7 @@ barrier image
 
 enemies images
 	# administrators - 4 different versions
-	trustee (bonus enemy)
+	# trustee (bonus enemy)
 
 blood splatter image
 

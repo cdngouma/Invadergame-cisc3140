@@ -15,6 +15,7 @@ var playState = {
         game.load.audio('explosion2', 'assets/soundfx/zapsplat_explosion_2.mp3');
         game.load.audio('bgmusic', 'assets/soundfx/comeandfindme.ogg');
         game.load.image('player', 'assets/sprites/player.png');
+        game.load.image('live', 'assets/sprites/live.png');
         // load player bullets sprites
         game.load.image('bullet0', 'assets/sprites/bullet0.png');
         game.load.image('bullet1', 'assets/sprites/bullet1.png');
@@ -31,7 +32,7 @@ var playState = {
         game.load.image('background', 'css/css_image/bk_college.png');
 
         score = new Score(0);
-        lives = new Lives(3);
+        lives = new Lives(8);
         level = 1;
     },
 
@@ -107,14 +108,17 @@ var playState = {
         }).setTextBounds(1, 1);
 
         // Display the current lives
-        livesDisplay = game.add.text(30, 20, 'LIVES:  ' + lives.getLives(), {
+        livesDisplay = game.add.text(30, 20, 'LIVES:  ', {
             font: '20px Impact',
             fill: "White",
             align: "left",
             boundsAlignH: "left"
         }).setTextBounds(1, 1);
-
-
+        livesIcons = game.add.group();
+        let nlives = lives.getLives();
+        for(let i = 0; i < nlives; i++) {
+            livesIcons.create(90+44*i, 14, 'live');
+        }
     },
 
     update : function()  {
@@ -150,7 +154,14 @@ var playState = {
 
         // UPDATE SCORE
         scoreDisplay.text = score.getScore(); // display new score
-        livesDisplay.text = 'LIVES:  ' + lives.getLives(); // display current lives
+        // update current lives
+        let deaths = lives.getMaxLives() - lives.getLives();
+        if(deaths > 0) {
+            livesIcons
+                .getAll()
+                .slice(-1 * deaths)
+                .forEach(l => l.kill());
+        }
 
         // Check to see if player has won
         if (this.checkEnemyCount() === 0) {

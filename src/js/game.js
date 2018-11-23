@@ -72,6 +72,7 @@ class Score {
 class Lives {
     constructor(lives) {
         this.lives = lives;
+        this.maxLives = lives;
     }
 
     addLife() {
@@ -84,6 +85,10 @@ class Lives {
 
     getLives() {
         return this.lives;
+    }
+
+    getMaxLives() {
+        return this.maxLives;
     }
 }
 

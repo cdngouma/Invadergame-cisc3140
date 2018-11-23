@@ -50,7 +50,7 @@ var playState = {
         bullets = game.add.group();
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        var numBullets = 40;    // N number of bullets needed for N enemies
+        var numBullets = 1;    // number of bullets that can be active at one time
         // adding bullets to group
         for (let i = 0; i < numBullets; i++){
             // randomly pick a image for each bullet

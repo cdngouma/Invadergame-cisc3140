@@ -1,5 +1,5 @@
 var bulletTime = 0;
-// var cursors;
+var cursors;
 var player;
 var facultyMembers;
 var firingTimer = 0;    // set to regulate faculty members firing rate
@@ -11,6 +11,7 @@ var playState = {
         // Load game assets
         game.load.audio('explosion1', 'assets/soundfx/zapsplat_explosion_1.mp3');
         game.load.audio('explosion2', 'assets/soundfx/zapsplat_explosion_2.mp3');
+        game.load.audio('bgmusic', 'assets/soundfx/comeandfindme.ogg');
         game.load.image('player', 'assets/sprites/player.png');
         // load player bullets sprites
         game.load.image('bullet0', 'assets/sprites/bullet0.png');
@@ -41,6 +42,8 @@ var playState = {
         // create sounds for game
         explosion1 = new Phaser.Sound(game, 'explosion1', volume, false);
         explosion2 = new Phaser.Sound(game, 'explosion2', volume, false);
+        bgmusic = new Phaser.Sound(game, 'bgmusic', volume, true);
+        bgmusic.play();
 
         //  create a bullet group for player
         bullets = game.add.group();
@@ -143,9 +146,8 @@ var playState = {
 
             // run collision detection for faculty members and player bullets
             game.physics.arcade.overlap(bullets, facultyMembers, this.collisionHandler, null, this);
-
             // run collision detection for player character and faculty bullets
-            game.physics.arcade.overlap(facultyBullets , player, this.playerCollision, null, this )
+            game.physics.arcade.overlap(player, facultyBullets, this.playerCollision, null, this )
 
         }
 
@@ -237,16 +239,21 @@ var playState = {
 
 
     // Function to handle collisions between bullets and faculty members
-    collisionHandler : function () {
-        var scores = [100, 80, 60, 40, 10, 5];  // array of scores for each row from to to bottom
-                                                // index 0 --> trustee
-        let name = facultyMembers.name;
+    collisionHandler : function (bullet, facultyMember) {
+        facultyMember.kill();
         bullet.kill();
-        facultyMembers.kill();
-        explosion1.play();
 
-        // adds to the score when a faculty members dies
-        score.addToScore(facultyMember.name === 'trustee' ? scores[0] : scores[parseInt(name)]);
+        var scores = [100, 80, 60, 40, 10];  // array of scores for each row from to to bottom; index 0 --> trustee
+        let name = parseInt(facultyMember.name);
+
+        if (name ===  'trustee') {
+            explosion2.play();
+            score.addToScore(scores[0]);
+        }
+        else {
+            explosion1.play();
+            score.addToScore(scores[name]);
+        }
     },
 
     //function to detect if player is hit

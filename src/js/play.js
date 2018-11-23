@@ -73,7 +73,8 @@ var playState = {
         facultyBullets.physicsBodyType = Phaser.Physics.ARCADE;
 
         // adding enemy bullets to group
-        facultyBullets.createMultiple(numBullets, 'faculty-bullet0');
+        var facNumBullets = 40;
+        facultyBullets.createMultiple(facNumBullets, 'faculty-bullet0');
         facultyBullets.setAll('anchor.setTo', 0.5);
         facultyBullets.setAll('anchor.y', 1);
         facultyBullets.setAll('outOfBoundsKill', true);
@@ -203,10 +204,10 @@ var playState = {
         facultyMembers.x = 50;
         facultyMembers.y = 50;
 
-        // make the faculty members move horizontally
-        var tween = game.add.tween(facultyMembers).to({
-            x: 200  // how far faculty members move horizontally
-        }, interval, Phaser.Easing.Linear.None, true, 0, 1000, true);
+        // make the faculty members move
+        // x is how far faculty members move horizontally, y is vertically
+        var facultyTween = game.add.tween(facultyMembers)
+            .to({ x: 200 }, interval, Phaser.Easing.Linear.None, true, 0, 1000, true);
     },
 
     facultyShoots : function() {
@@ -232,7 +233,6 @@ var playState = {
             firingTimer = game.time.now + rate;
         }
     },
-
 
     // Function to handle collisions between bullets and faculty members
     collisionHandler : function(bullet, facultyMember) {

@@ -32,7 +32,7 @@ var playState = {
         game.load.image('background', 'css/css_image/bk_college.png');
 
         score = new Score(0);
-        lives = new Lives(8);
+        lives = new Lives(3);
         level = 1;
     },
 

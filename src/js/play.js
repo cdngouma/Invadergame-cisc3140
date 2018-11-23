@@ -4,6 +4,7 @@ var player;
 var facultyMembers;
 var firingTimer = 0;    // set to regulate faculty members firing rate
 var livingFaculties = [];
+var bullets;
 
 var playState = {
 
@@ -42,7 +43,7 @@ var playState = {
         // create sounds for game
         explosion1 = new Phaser.Sound(game, 'explosion1', volume, false);
         explosion2 = new Phaser.Sound(game, 'explosion2', volume, false);
-        bgmusic = new Phaser.Sound(game, 'bgmusic', volume, true);
+        bgmusic = game.add.audio('bgmusic', 0.5, true);
         bgmusic.play();
 
         //  create a bullet group for player
@@ -53,23 +54,18 @@ var playState = {
         // adding bullets to group
         for (let i = 0; i < numBullets; i++){
             // randomly pick a image for each bullet
-            var b = bullets.create(0, 0, 'bullet' + Math.floor(Math.random() * 100) % 3);
-            b.anchor.setTo(0.5, 1.5);
-            b.checkWorldBounds = true;
-            b.outOfBoundsKill = true;
+            playerBullets = bullets.create(0, 0, 'bullet' + Math.floor(Math.random() * 100) % 3);
+            playerBullets.anchor.setTo(0.5, 1.5);
+            playerBullets.checkWorldBounds = true;
+            playerBullets.outOfBoundsKill = true;
 
-            b.scale.x=0.5;
-            b.scale.y=0.5;
+            playerBullets.scale.x=0.5;
+            playerBullets.scale.y=0.5;
 
         }
 
         // create player
-        player = game.add.sprite(32, 32, 'player');
-        player.x = WIDTH / 2;
-        player.y = HEIGHT - 20;
-        player.anchor.setTo(0.5, 0.5);
-        game.physics.enable(player, Phaser.Physics.ARCADE);
-        player.body.collideWorldBounds = true;
+        this.createPlayer();
 
         //  create a bullet group for faculty members
         facultyBullets = game.add.group();
@@ -259,11 +255,24 @@ var playState = {
     //function to detect if player is hit
     playerCollision : function() {
         facultyBullets.killAll();
+        bullets.killAll();
         player.kill();
         lives.removeLife();
         if (lives.getLives() === 0) {
             this.lose();
         }
+        else {
+            this.createPlayer();
+        }
+    },
+
+    createPlayer : function() {
+        player = game.add.sprite(32, 32, 'player');
+        player.x = WIDTH / 2;
+        player.y = HEIGHT - 20;
+        player.anchor.setTo(0.5, 0.5);
+        game.physics.enable(player, Phaser.Physics.ARCADE);
+        player.body.collideWorldBounds = true;
     }
 };
 

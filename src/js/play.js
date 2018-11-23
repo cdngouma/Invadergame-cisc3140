@@ -51,7 +51,7 @@ var playState = {
         bullets = game.add.group();
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        var numBullets = 1;    // number of bullets that can be active at one time
+        var numBullets = 40;    // number of bullets that can be active at one time
         // adding bullets to group
         for (let i = 0; i < numBullets; i++){
             // randomly pick a image for each bullet
@@ -75,7 +75,7 @@ var playState = {
         // adding enemy bullets to group
         var facNumBullets = 40;
         facultyBullets.createMultiple(facNumBullets, 'faculty-bullet0');
-        facultyBullets.setAll('anchor.setTo', 0);
+        facultyBullets.setAll('anchor.setTo', 0 );
         facultyBullets.setAll('anchor.y', 0);
         facultyBullets.setAll('outOfBoundsKill', true);
         facultyBullets.setAll('checkWorldBounds', true);
@@ -132,7 +132,7 @@ var playState = {
             }
 
             // fire bullet
-            if(fireButton.isDown){
+            if(fireButton.isDown && bullets.countLiving() === 0){
                 this.fireBullet();
             }
 
@@ -167,7 +167,7 @@ var playState = {
 
         if(game.time.now  > bulletTime ){
             // create a bullet then
-            bullet = bullets.getFirstExists(false);
+            bullet = bullets.getRandom();
 
             if (bullet){
                 // fire it

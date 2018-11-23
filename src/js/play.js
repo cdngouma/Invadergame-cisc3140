@@ -8,7 +8,7 @@ var bullets;
 
 var playState = {
 
-    preload : function () {
+    preload : function() {
         // Load game assets
         game.load.audio('explosion1', 'assets/soundfx/zapsplat_explosion_1.mp3');
         game.load.audio('explosion2', 'assets/soundfx/zapsplat_explosion_2.mp3');
@@ -34,7 +34,7 @@ var playState = {
         level = 1;
     },
 
-    create : function () {
+    create : function() {
         console.log("DEBUG: in play state");
 
         // add background image
@@ -54,7 +54,7 @@ var playState = {
         // adding bullets to group
         for (let i = 0; i < numBullets; i++){
             // randomly pick a image for each bullet
-            playerBullets = bullets.create(0, 0, 'bullet' + Math.floor(Math.random() * 100) % 3);
+            var playerBullets = bullets.create(0, 0, 'bullet' + Math.floor(Math.random() * 100) % 3);
             playerBullets.anchor.setTo(0.5, 1.5);
             playerBullets.checkWorldBounds = true;
             playerBullets.outOfBoundsKill = true;
@@ -116,7 +116,7 @@ var playState = {
 
     },
 
-    update : function ()  {
+    update : function()  {
         var playerSpeed = 200;
         if(player.alive){
             // stop player then check for movement keys
@@ -153,11 +153,11 @@ var playState = {
     },
 
     // Continue to the 'win' state
-    win : function () {
+    win : function() {
         game.state.start('win');
     },
 
-    lose : function () {
+    lose : function() {
         game.state.start('lose');
     },
 
@@ -184,10 +184,10 @@ var playState = {
         var bossPos = Math.floor(Math.random() * (MEMBERS_PER_ROW-1));  // position of the trustee in upmost row
 
         for(y = 0; y < ROWS; y++){
-            for(x = 0; x <  MEMBERS_PER_ROW; x++){
+            for (x = 0; x <  MEMBERS_PER_ROW; x++){
                 var member;
                 // member.name set a name each element of each row. This is needed to determine score
-                if(y === 0 && x === bossPos){
+                if (y === 0 && x === bossPos){
                     member = facultyMembers.create(x * 60, y * 60 + 50, 'trustee');
                     member.name = 'trustee';
                 } else {
@@ -235,7 +235,7 @@ var playState = {
 
 
     // Function to handle collisions between bullets and faculty members
-    collisionHandler : function (bullet, facultyMember) {
+    collisionHandler : function(bullet, facultyMember) {
         facultyMember.kill();
         bullet.kill();
 
@@ -259,6 +259,7 @@ var playState = {
         player.kill();
         lives.removeLife();
         if (lives.getLives() === 0) {
+            bgmusic.stop();
             this.lose();
         }
         else {

@@ -114,10 +114,10 @@ var playState = {
             align: "left",
             boundsAlignH: "left"
         }).setTextBounds(1, 1);
-        livesIcons = game.add.group();
+        this.livesIcons = game.add.group();
         let nlives = lives.getLives();
         for(let i = 0; i < nlives; i++) {
-            livesIcons.create(90+44*i, 14, 'live');
+            this.livesIcons.create(90+44*i, 14, 'live');
         }
     },
 
@@ -157,7 +157,7 @@ var playState = {
         // update current lives
         let deaths = lives.getMaxLives() - lives.getLives();
         if(deaths > 0) {
-            livesIcons
+            this.livesIcons
                 .getAll()
                 .slice(-1 * deaths)
                 .forEach(l => l.kill());

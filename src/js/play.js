@@ -240,7 +240,7 @@ var playState = {
         bullet.kill();
 
         var scores = [100, 80, 60, 40, 10];  // array of scores for each row from to to bottom; index 0 --> trustee
-        let name = parseInt(facultyMember.name);
+        let name = facultyMember.name;
 
         if (name ===  'trustee') {
             explosion2.play();
@@ -248,7 +248,7 @@ var playState = {
         }
         else {
             explosion1.play();
-            score.addToScore(scores[name]);
+            score.addToScore(scores[parseInt(name)]);
         }
     },
 

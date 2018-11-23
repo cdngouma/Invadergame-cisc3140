@@ -14,7 +14,7 @@ text/icons on menu screens
 	# instructions
 	    add scoring and implement click to show instructions
 
-icons representing lives
+# icons representing lives
 	# upper left hand corner
 
 # text representing score

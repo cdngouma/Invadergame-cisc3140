@@ -16,6 +16,7 @@ var playState = {
         game.load.audio('bgmusic', 'assets/soundfx/comeandfindme.ogg');
         game.load.image('player', 'assets/sprites/player.png');
         game.load.image('live', 'assets/sprites/live.png');
+        game.load.spritesheet('explosion', 'assets/sprites/explosion.png', 32, 32, 6);
         // load player bullets sprites
         game.load.image('bullet0', 'assets/sprites/bullet0.png');
         game.load.image('bullet1', 'assets/sprites/bullet1.png');
@@ -264,12 +265,18 @@ var playState = {
 
     // Function to handle collisions between bullets and faculty members
     collisionHandler : function(bullet, facultyMember) {
+        var explosion = game.add.sprite(bullet.x, bullet.y, 'explosion');
+        explosion.scale.x = 2;
+        explosion.scale.y = 2;
+        explosion.anchor.setTo(0, 2);
+        var explode = explosion.animations.add('explode');
+        explosion.animations.play('explode', 10, false, true);
+
         facultyMember.kill();
         bullet.kill();
 
         var scores = [100, 80, 60, 40, 10];  // array of scores for each row from to to bottom; index 0 --> trustee
         let name = facultyMember.name;
-
         if (name ===  'trustee') {
             explosion2.play();
             score.addToScore(scores[0]);

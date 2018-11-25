@@ -62,8 +62,8 @@ var playState = {
             playerBullets.checkWorldBounds = true;
             playerBullets.outOfBoundsKill = true;
 
-            playerBullets.scale.x=0.5;
-            playerBullets.scale.y=0.5;
+            playerBullets.scale.x=0.60;
+            playerBullets.scale.y=0.60;
         }
 
         // create player
@@ -207,10 +207,10 @@ var playState = {
                 var member;
                 // member.name set a name each element of each row. This is needed to determine score
                 if (y === 0 && x === bossPos){
-                    member = facultyMembers.create(x * 60, y * 60 + 50, 'trustee');
+                    member = facultyMembers.create(x * 60, y * 60 + 40, 'trustee');
                     member.name = 'trustee';
                 } else {
-                    member = facultyMembers.create(x * 60, y * 60 + 50, 'faculty-r' + y);
+                    member = facultyMembers.create(x * 60, y * 60 + 40, 'faculty-r' + y);
                     member.name = y+1;
                 }
                 member.anchor.setTo(0.5, 0.5);
@@ -241,7 +241,7 @@ var playState = {
 
     facultyShoots : function() {
         var bulletSpeed = 120;
-        var rate = 1000; // rate at which faculty members fire (in ms^-1)
+        var rate = 1500; // rate at which faculty members fire (in ms^-1)
         //  Grab the first bullet we can from the pool
         facultyBullet = facultyBullets.getFirstExists(false);
 
@@ -275,7 +275,7 @@ var playState = {
         facultyMember.kill();
         bullet.kill();
 
-        var scores = [100, 80, 60, 40, 10];  // array of scores for each row from to to bottom; index 0 --> trustee
+        var scores = [50, 30, 25, 20, 15];  // array of scores for each row from to to bottom; index 0 --> trustee
         let name = facultyMember.name;
         if (name ===  'trustee') {
             explosion2.play();

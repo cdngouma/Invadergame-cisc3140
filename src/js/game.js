@@ -45,6 +45,7 @@ console.log("DEBUG: game created");
  *
  * preload() and create() should load game assets and create game objects, respectively
  * the update() cycle should control the game loop (i.e. collisions, update score, player movement */
+game.state.add('load', loadState);
 game.state.add('menu', menuState);
 game.state.add('play', playState);
 game.state.add('win', winState);
@@ -96,13 +97,9 @@ class Lives {
 /* variable to store current level */
 var level = 0;
 
-/* Start physics engine and then continue to the menuState */
+/* move to loadState */
 function preload() {
 
-    // Start 'arcade' game physics
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    console.log("DEBUG: physics started");
+    game.state.start('load');
 
-    // Start the game at the menu state
-    game.state.start('menu');
 };

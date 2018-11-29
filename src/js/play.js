@@ -9,36 +9,13 @@ var tweenCounter = 0;
 
 var playState = {
 
-    preload : function() {
-        // Load game assets
-        game.load.audio('explosion1', 'assets/soundfx/zapsplat_explosion_1.mp3');
-        game.load.audio('explosion2', 'assets/soundfx/zapsplat_explosion_2.mp3');
-        game.load.audio('bgmusic', 'assets/soundfx/comeandfindme.ogg');
-        game.load.image('player', 'assets/sprites/player.png');
-        game.load.image('live', 'assets/sprites/live.png');
-        game.load.spritesheet('explosion', 'assets/sprites/explosion.png', 32, 32, 6);
-        // load player bullets sprites
-        game.load.image('bullet0', 'assets/sprites/bullet0.png');
-        game.load.image('bullet1', 'assets/sprites/bullet1.png');
-        game.load.image('bullet2', 'assets/sprites/bullet3.png');
-        // load faculty member sprites
-        game.load.image('faculty-r0', 'assets/sprites/faculty-r0.png');
-        game.load.image('faculty-r1', 'assets/sprites/faculty-r1.png');
-        game.load.image('faculty-r2', 'assets/sprites/faculty-r2.png');
-        game.load.image('faculty-r3', 'assets/sprites/faculty-r3.png');
-        game.load.image('trustee', 'assets/sprites/trustee.png');
-        // load faculty bullet
-        game.load.image('faculty-bullet0', 'assets/sprites/faculty_bullet0.png');
-        //background
-        game.load.image('background', 'css/css_image/bk_college.png');
+    create : function() {
+        console.log("DEBUG: in play state");
 
+        // set initial variables for first level
         score = new Score(0);
         lives = new Lives(3);
         level = 1;
-    },
-
-    create : function() {
-        console.log("DEBUG: in play state");
 
         // add background image
         this.add.image(0,0,'background');

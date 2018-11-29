@@ -1,12 +1,5 @@
 var menuState = {
 
-    preload : function () {
-        // load assets for menu
-        game.load.image('volumeOn', 'assets/sprites/volume_on.png');
-        game.load.image('volumeOff', 'assets/sprites/volume_off.png');
-
-    },
-
     create : function () {
         console.log("DEBUG: in menu state");
 

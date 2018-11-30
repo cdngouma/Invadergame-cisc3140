@@ -47,6 +47,7 @@ console.log("DEBUG: game created");
  * the update() cycle should control the game loop (i.e. collisions, update score, player movement */
 game.state.add('load', loadState);
 game.state.add('menu', menuState);
+game.state.add('instructions', instructionState);
 game.state.add('play', playState);
 game.state.add('win', winState);
 game.state.add('lose', loseState);

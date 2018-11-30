@@ -28,10 +28,10 @@ var menuState = {
         // instructions to start game
         // setTextBounds allows text to be centered on canvas
         // move location of text on canvas with math on WIDTH and HEIGHT constants
-        game.add.text(WIDTH/2, (HEIGHT/5) * 2, 'Instructions: \n' +
-            'Move left and right using arrow keys \n' +
-            'Shoot projectile with SPACE key \n' +
-            'Press any key to start', {
+        game.add.text(WIDTH/2, (HEIGHT/5) * 2,
+            'Press V to toggle volume \n' +
+            'Press N to view instructions \n' +
+            'Press ENTER to start', {
             font: '20px Impact',
             fill: "White",
             align: "center",
@@ -62,6 +62,12 @@ var menuState = {
         if (this.enterButton.isDown) {
             this.destroyKeys();
             game.state.start('play');
+        }
+
+        // when the instruction key is pressed, destroy key objects and call instructions
+        if (this.instructionButton.isDown) {
+            this.destroyKeys();
+            game.state.start('instructions');
         }
 
         // toggle volume on 'V' keypress

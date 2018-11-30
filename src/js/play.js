@@ -70,7 +70,7 @@ var playState = {
         fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         // Display the score
-        scoreDisplay = game.add.text(WIDTH-30, 20, score.getScore(), {
+        scoreDisplay = game.add.text(WIDTH-30, 20, 'SCORE: ' + score.getScore(), {
             font: '20px Impact',
             fill: "White",
             align: "right",
@@ -131,7 +131,7 @@ var playState = {
         }
 
         // UPDATE SCORE
-        scoreDisplay.text = score.getScore(); // display new score
+        scoreDisplay.text = 'SCORE: ' + score.getScore(); // display new score
         // update current lives
         let deaths = lives.getMaxLives() - lives.getLives();
         if(deaths > 0) {

@@ -1,5 +1,7 @@
 var winState = {
 
+    enterButton : {},
+
     create : function () {
         console.log("DEBUG: in win state");
 
@@ -11,17 +13,19 @@ var winState = {
         }).setTextBounds(1, 1);
 
         // instructions to start game
-        game.add.text(WIDTH / 2, HEIGHT / 1.5, 'PRESS ANY KEY TO START', {
+        game.add.text(WIDTH / 2, HEIGHT / 1.5, 'PRESS ENTER KEY TO START', {
             font: '30px Impact',
             fill: "White",
             boundsAlignH: "center"
         }).setTextBounds(1, 1);
+
+        this.enterButton = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     },
 
     update : function () {
-        // when the any key is pressed, reset pressEvent to null and call menu
-        if (game.input.keyboard.pressEvent != null) {
-            game.input.keyboard.pressEvent = null;
+        // when the enter key is pressed, destroy enterButton object and call menu
+        if (this.enterButton.isDown) {
+            this.enterButton.destroy;
             game.state.start('menu');
         }
     }

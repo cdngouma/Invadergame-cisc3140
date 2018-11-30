@@ -1,5 +1,15 @@
 var menuState = {
 
+    enterButton : {},
+    instructionButton : {},
+    volumeButton : {},
+
+    destroyKeys : function () {
+        this.enterButton.destroy;
+        this.instructionButton.destroy;
+        this.volumeButton.destroy;
+    },
+
     create : function () {
         console.log("DEBUG: in menu state");
 
@@ -32,13 +42,16 @@ var menuState = {
         muteButton.scale.x = .5;
         muteButton.scale.y = .5;
 
+        this.enterButton = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        this.instructionButtonButton = game.input.keyboard.addKey(Phaser.Keyboard.I);
+        this.volumeButton = game.input.keyboard.addKey(Phaser.Keyboard.V);
+
     },
 
     update : function () {
-        // when the any key is pressed, reset pressEvent to null and call play
-        // ** THIS SHOULD BE CHANGED TO A MOUSECLICK EVENT OVER THE TEXT 'START GAME'
-        if (game.input.keyboard.pressEvent != null) {
-            game.input.keyboard.pressEvent = null;
+        // when the enter key is pressed, destroy key objects and call menu
+        if (this.enterButton.isDown) {
+            this.destroyKeys();
             game.state.start('play');
         }
     }

@@ -52,8 +52,11 @@ game.state.add('win', winState);
 game.state.add('lose', loseState);
 console.log("DEBUG: states added");
 
-/* variable to store global volume level */
+/* global variable to store global volume level */
 var volume = 1.0;
+
+/* global variable to store current level */
+var level = 0;
 
 /* class to store and manipulate a player's score */
 class Score {
@@ -93,9 +96,6 @@ class Lives {
         return this.maxLives;
     }
 }
-
-/* variable to store current level */
-var level = 0;
 
 /* move to loadState */
 function preload() {

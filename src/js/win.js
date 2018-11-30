@@ -13,7 +13,7 @@ var winState = {
         }).setTextBounds(1, 1);
 
         // instructions to start game
-        game.add.text(WIDTH / 2, HEIGHT / 1.5, 'PRESS ENTER KEY TO START', {
+        game.add.text(WIDTH / 2, HEIGHT / 1.5, 'Press ENTER KEY to return to main menu', {
             font: '30px Impact',
             fill: "White",
             boundsAlignH: "center"

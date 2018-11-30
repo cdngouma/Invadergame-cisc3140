@@ -42,7 +42,6 @@ var loadState = {
 
     // The create function is a standard Phaser function and is automatically called
     create : function () {
-
         // Continue to the 'menu' state
         game.state.start('menu');
     }

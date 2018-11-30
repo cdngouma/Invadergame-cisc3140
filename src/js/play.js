@@ -23,7 +23,7 @@ var playState = {
         // create sounds for game
         explosion1 = new Phaser.Sound(game, 'explosion1', volume, false);
         explosion2 = new Phaser.Sound(game, 'explosion2', volume, false);
-        bgmusic = game.add.audio('bgmusic', 0.5, true);
+        bgmusic = game.add.audio('bgmusic', volume * 0.5, true);
         bgmusic.play();
 
         //  create a bullet group for player

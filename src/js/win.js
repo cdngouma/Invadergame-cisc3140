@@ -19,6 +19,7 @@ var winState = {
             boundsAlignH: "center"
         }).setTextBounds(1, 1);
 
+        // controls for state
         this.enterButton = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     },
 

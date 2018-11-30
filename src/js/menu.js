@@ -3,6 +3,9 @@ var menuState = {
     enterButton : {},
     instructionButton : {},
     volumeButton : {},
+    volButtonOn : {},
+    volButtonOff : {},
+
 
     destroyKeys : function () {
         this.enterButton.destroy;
@@ -35,15 +38,21 @@ var menuState = {
             boundsAlignH: "center"
         }).setTextBounds(1, 1);
 
-        // mute button for global volume - sets global 'volume' variable declared in game.js to either 1 or 0
-        // move location of text on canvas with math on WIDTH and HEIGHT constants
-        muteButton = game.add.image(WIDTH/2, (HEIGHT/5) * 4, 'volumeOn');
-        muteButton.anchor.setTo(0.5, 0.5);
-        muteButton.scale.x = .5;
-        muteButton.scale.y = .5;
+        // volume icon for global volume - sets global 'volume' variable declared in game.js to either 1 or 0
+        this.volButtonOn = game.add.image(WIDTH/2, (HEIGHT/5) * 4, 'volumeOn');
+        this.volButtonOn.anchor.setTo(0.5, 0.5);
+        this.volButtonOn.scale.x = .5;
+        this.volButtonOn.scale.y = .5;
 
+        this.volButtonOff = game.add.image(WIDTH/2, (HEIGHT/5) * 4, 'volumeOff');
+        this.volButtonOff.anchor.setTo(0.5, 0.5);
+        this.volButtonOff.scale.x = .5;
+        this.volButtonOff.scale.y = .5;
+        this.volButtonOff.kill();
+
+        // controls for menu state
         this.enterButton = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-        this.instructionButtonButton = game.input.keyboard.addKey(Phaser.Keyboard.I);
+        this.instructionButton = game.input.keyboard.addKey(Phaser.Keyboard.N);
         this.volumeButton = game.input.keyboard.addKey(Phaser.Keyboard.V);
 
     },
@@ -53,6 +62,22 @@ var menuState = {
         if (this.enterButton.isDown) {
             this.destroyKeys();
             game.state.start('play');
+        }
+
+        // toggle volume on 'V' keypress
+        if (this.volumeButton.isDown) {
+            if (volume === 1.0) {
+                this.volumeButton.isDown = false;
+                this.volButtonOn.kill();
+                this.volButtonOff.revive();
+                volume = 0.0;
+            }
+            else {
+                this.volumeButton.isDown = false;
+                this.volButtonOff.kill();
+                this.volButtonOn.revive();
+                volume = 1.0;
+            }
         }
     }
 

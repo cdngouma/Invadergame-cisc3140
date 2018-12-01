@@ -6,6 +6,8 @@ var firingTimer = 0;    // set to regulate faculty members firing rate
 var livingFaculties = [];
 var bullets;
 var tweenCounter = 0;
+var facultyTween;
+var pause_flag = false;
 
 var playState = {
 
@@ -105,26 +107,29 @@ var playState = {
 
     update : function()  {
         var playerSpeed = 200;
-        if(player.alive){
-            // stop player then check for movement keys
-            player.body.velocity.setTo(0, 0);
-            // move player around
-            if(cursors.left.isDown){
-                player.body.velocity.x = -playerSpeed; // move sprite to left
-                player.scale.x = -1;    // face sprite to left
-            } else if(cursors.right.isDown){
-                player.body.velocity.x = playerSpeed; // move sprite to right
-                player.scale.x = 1;    // face sprite to right
-            }
+        player.body.velocity.setTo(0, 0);
 
-            // fire bullet
-            if(fireButton.isDown && bullets.countLiving() === 0){
-                this.fireBullet();
-            }
+        // if game is not 'paused' allow player movement/firing and enemy firing
+        if (player.alive){
+            if (pause_flag === false) {
+                // move player around
+                if (cursors.left.isDown) {
+                    player.body.velocity.x = -playerSpeed; // move sprite to left
+                    player.scale.x = -1;    // face sprite to left
+                } else if (cursors.right.isDown) {
+                    player.body.velocity.x = playerSpeed; // move sprite to right
+                    player.scale.x = 1;    // face sprite to right
+                }
 
-            // fire faculty bullet
-            if (game.time.now > firingTimer) {
-                this.facultyShoots();
+                // fire bullet
+                if (fireButton.isDown && bullets.countLiving() === 0) {
+                    this.fireBullet();
+                }
+
+                // fire faculty bullet
+                if (game.time.now > firingTimer) {
+                    this.facultyShoots();
+                }
             }
 
             // run collision detection for faculty members and player bullets
@@ -206,7 +211,7 @@ var playState = {
 
         // make the faculty members move
         // x is how far faculty members move horizontally, y is vertically
-        var facultyTween = game.add.tween(facultyMembers)
+        facultyTween = game.add.tween(facultyMembers)
             .to({ x: 200 }, interval, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
         facultyTween.onRepeat.add(onLoop, this);
@@ -283,19 +288,27 @@ var playState = {
 
     //function to detect if player is hit
     playerCollision : function() {
+        pause_flag = true;
+        facultyTween.pause();
         facultyBullets.killAll();
         bullets.killAll();
-        player.kill();
         lives.removeLife();
         playerhit_sound.play();
 
-        if (lives.getLives() === 0) {
-            bgmusic.stop();
-            this.lose();
-        }
-        else {
-            this.createPlayer();
-        }
+        var playerTween = game.add.tween(player).to( { alpha: 0 }, 100, Phaser.Easing.Linear.None, true, 0, 3, true, );
+
+        playerTween.onComplete.add(function() {
+            player.kill();
+            if (lives.getLives() === 0) {
+                bgmusic.stop();
+                this.lose();
+            }
+            else {
+                this.createPlayer();
+                facultyTween.resume();
+                pause_flag = false;
+            }
+        }, this);
     },
 
     createPlayer : function() {

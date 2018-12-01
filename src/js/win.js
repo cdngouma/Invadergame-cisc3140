@@ -1,9 +1,13 @@
 var winState = {
 
     enterButton : {},
+    win_sound : {},
 
     create : function () {
         console.log("DEBUG: in win state");
+
+        // sound to play when win state has been reached
+        this.win_sound = new Phaser.Sound(game, 'game_win', volume * 1.5, false);
 
         // win message
         game.add.text(WIDTH / 2, HEIGHT / 3, 'YOU WIN', {
@@ -21,6 +25,10 @@ var winState = {
 
         // controls for state
         this.enterButton = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
+        // play win sound once
+        this.win_sound.play();
+
     },
 
     update : function () {

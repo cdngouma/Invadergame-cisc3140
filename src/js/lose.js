@@ -1,9 +1,13 @@
 var loseState = {
 
     enterButton : {},
+    lose_sound : {},
 
     create : function () {
         console.log("DEBUG: in lose state");
+
+        // sound to play when lose state has been reached
+        this.lose_sound = new Phaser.Sound(game, 'game_over', volume, false);
 
         // lose message
         game.add.text(WIDTH / 2, HEIGHT / 3, 'YOU LOSE', {
@@ -21,6 +25,10 @@ var loseState = {
 
         // controls for state
         this.enterButton = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
+        // play lose sound once
+        this.lose_sound.play();
+
     },
 
     update : function () {

@@ -19,7 +19,16 @@ var loadState = {
         // Load game sounds
         game.load.audio('explosion1', 'assets/soundfx/zapsplat_explosion_1.mp3');
         game.load.audio('explosion2', 'assets/soundfx/zapsplat_explosion_2.mp3');
-        game.load.audio('bgmusic', 'assets/soundfx/comeandfindme.ogg');
+        game.load.audio('scream', 'assets/soundfx/wilhelm_scream.ogg');
+        game.load.audio('bgmusic', 'assets/soundfx/background.mp3');
+        game.load.audio('enemyshoot', 'assets/soundfx/enemy_throws_projectile.ogg');
+        game.load.audio('game_lose', 'assets/soundfx/game_lose.ogg');
+        game.load.audio('game_over', 'assets/soundfx/game_over.ogg');
+        game.load.audio('game_win', 'assets/soundfx/game_win.ogg');
+        game.load.audio('level_complete', 'assets/soundfx/level_complete.ogg');
+        game.load.audio('playershoot', 'assets/soundfx/player_throw_projectile.ogg');
+        game.load.audio('enemyhit', 'assets/soundfx/regular_enemy_was_hit.ogg');
+        game.load.audio('playerhit', 'assets/soundfx/hp_decrease.mp3');
         // load player and player life sprites
         game.load.image('player', 'assets/sprites/player.png');
         game.load.image('live', 'assets/sprites/live.png');

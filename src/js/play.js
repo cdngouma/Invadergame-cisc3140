@@ -21,8 +21,12 @@ var playState = {
         this.add.image(0,0,'background');
 
         // create sounds for game
-        explosion1 = new Phaser.Sound(game, 'explosion1', volume, false);
-        explosion2 = new Phaser.Sound(game, 'explosion2', volume, false);
+        explosion1_sound = new Phaser.Sound(game, 'explosion1', volume, false);
+        explosion2_sound = new Phaser.Sound(game, 'explosion2', volume, false);
+        enemyshoot_sound = new Phaser.Sound(game, 'enemyshoot', volume * 0.25, false);
+        playershoot_sound = new Phaser.Sound(game, 'playershoot', volume * 0.25, false);
+        playerhit_sound = new Phaser.Sound(game, 'playerhit', volume * 0.5, false);
+        trusteehit_sound = new Phaser.Sound(game, 'scream', volume, false);
         bgmusic = game.add.audio('bgmusic', volume * 0.5, true);
         bgmusic.play();
 
@@ -169,6 +173,7 @@ var playState = {
                 bullet.reset(player.x, player.y + 8);
                 bullet.body.velocity.y = -bulletSpeed;
                 bulletTime = game.time.now + 200;
+                playershoot_sound .play();
             }
         }
     },
@@ -234,6 +239,7 @@ var playState = {
             var shooter = livingFaculties[random];
             // fire the bullet from this faculty member
             facultyBullet.reset(shooter.body.x, shooter.body.y);
+            enemyshoot_sound.play();
 
             game.physics.arcade.moveToObject(facultyBullet, player, bulletSpeed);
             firingTimer = game.time.now + rate;
@@ -255,11 +261,12 @@ var playState = {
         var scores = [50, 30, 25, 20, 15];  // array of scores for each row from to to bottom; index 0 --> trustee
         let name = facultyMember.name;
         if (name ===  'trustee') {
-            explosion2.play();
+            explosion2_sound.play();
+            trusteehit_sound.play();
             score.addToScore(scores[0]);
         }
         else {
-            explosion1.play();
+            explosion1_sound.play();
             score.addToScore(scores[parseInt(name)]);
         }
     },
@@ -270,6 +277,8 @@ var playState = {
         bullets.killAll();
         player.kill();
         lives.removeLife();
+        playerhit_sound.play();
+
         if (lives.getLives() === 0) {
             bgmusic.stop();
             this.lose();

@@ -248,27 +248,37 @@ var playState = {
 
     // Function to handle collisions between bullets and faculty members
     collisionHandler : function(bullet, facultyMember) {
-        var explosion = game.add.sprite(bullet.x, bullet.y, 'explosion');
-        explosion.scale.x = 2;
-        explosion.scale.y = 2;
-        explosion.anchor.setTo(0, 2);
-        var explode = explosion.animations.add('explode');
-        explosion.animations.play('explode', 10, false, true);
-
-        facultyMember.kill();
-        bullet.kill();
-
-        var scores = [50, 30, 25, 20, 15];  // array of scores for each row from to to bottom; index 0 --> trustee
+        let scores = [50, 30, 25, 20, 15];  // array of scores for each row from to to bottom; index 0 --> trustee
         let name = facultyMember.name;
+
         if (name ===  'trustee') {
+            let blood = game.add.sprite(bullet.x, bullet.y - 85, 'blood');
+            blood.scale.x = 1.5;
+            blood.scale.y = 1.5;
+            blood.anchor.setTo(0.5, 0.5);
+            let splatter = blood.animations.add('splatter');
+            blood.animations.play('splatter', 60, false, true);
+
             explosion2_sound.play();
             trusteehit_sound.play();
+
             score.addToScore(scores[0]);
         }
         else {
+            let explosion = game.add.sprite(bullet.x, bullet.y - 85, 'explosion');
+            explosion.scale.x = 2;
+            explosion.scale.y = 2;
+            explosion.anchor.setTo(0.5, 0.5);
+            let explode = explosion.animations.add('explode');
+            explosion.animations.play('explode', 20, false, true);
+
             explosion1_sound.play();
+
             score.addToScore(scores[parseInt(name)]);
         }
+
+        facultyMember.kill();
+        bullet.kill();
     },
 
     //function to detect if player is hit

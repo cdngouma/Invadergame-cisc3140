@@ -27,7 +27,7 @@ var loadState = {
         game.load.audio('game_win', 'assets/soundfx/game_win.ogg');
         game.load.audio('level_complete', 'assets/soundfx/level_complete.ogg');
         game.load.audio('playershoot', 'assets/soundfx/player_throw_projectile.ogg');
-        game.load.audio('enemyhit', 'assets/soundfx/regular_enemy_was_hit.ogg');
+        game.load.audio('barrier_hit', 'assets/soundfx/regular_enemy_was_hit.ogg');
         game.load.audio('playerhit', 'assets/soundfx/hp_decrease.mp3');
         // load player and player life sprites
         game.load.image('player', 'assets/sprites/player.png');

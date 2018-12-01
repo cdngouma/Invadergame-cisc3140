@@ -9,7 +9,7 @@ var tweenCounter = 0;
 
 var playState = {
     facultyTween : {},
-    pause_flag : true,
+    pause_flag : false,
     barrier : {},
     barrier_flag : true,
 
@@ -31,6 +31,7 @@ var playState = {
         playershoot_sound = new Phaser.Sound(game, 'playershoot', volume * 0.25, false);
         playerhit_sound = new Phaser.Sound(game, 'playerhit', volume * 0.5, false);
         trusteehit_sound = new Phaser.Sound(game, 'scream', volume, false);
+        barrier_sound = new Phaser.Sound(game, 'barrier_hit', volume * 0.15, false);
         bgmusic = game.add.audio('bgmusic', volume * 0.5, true);
         bgmusic.play();
 
@@ -344,6 +345,7 @@ var playState = {
     barrierPlayerCollision : function(barrier, bullet) {
         barrier.kill();
         bullet.kill();
+        barrier_sound.play();
     },
 
     //function to detect if barrier is hit by enemy bullet - just call barrierPlayerCollision with faculty bullet

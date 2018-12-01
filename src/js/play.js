@@ -11,6 +11,7 @@ var playState = {
     facultyTween : {},
     pause_flag : true,
     barrier : {},
+    barrier_flag : true,
 
     create : function() {
         console.log("DEBUG: in play state");
@@ -54,6 +55,7 @@ var playState = {
         this.createPlayer();
 
         // Create barrier
+        this.barrier_flag = true;
         this.barrier = game.add.group();
         this.barrier.enableBody = true;
         this.barrier.physicsBodyType = Phaser.Physics.ARCADE;
@@ -166,19 +168,30 @@ var playState = {
 
         // Check to see if player has won
         if (this.checkEnemyCount() === 0) {
-            bgmusic.stop();
             this.win();
         }
 
-        // Check to see if enemy has reached cut-off point to cause loss of game
+        // Check to see if enemy has reached desks - if so, remove all desks
+        console.log(facultyMembers.y);
+        if (facultyMembers.y > 185 && this.barrier_flag === true) {
+            this.barrier_flag = false;
+            this.barrier.killAll();
+        }
+
+        // Check to see if enemy has reached cut-off point (player level) to cause loss of game
+        if (facultyMembers.y === 305) {
+            this.lose();
+        }
     },
 
     // Continue to the 'win' state
     win : function() {
+        bgmusic.stop();
         game.state.start('win');
     },
 
     lose : function() {
+        bgmusic.stop();
         game.state.start('lose');
     },
 
@@ -316,7 +329,6 @@ var playState = {
         playerTween.onComplete.add(function() {
             player.kill();
             if (lives.getLives() === 0) {
-                bgmusic.stop();
                 this.pause_flag = false;
                 this.lose();
             }

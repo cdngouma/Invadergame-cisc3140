@@ -6,10 +6,10 @@ var firingTimer = 0;    // set to regulate faculty members firing rate
 var livingFaculties = [];
 var bullets;
 var tweenCounter = 0;
-var facultyTween;
-var pause_flag = false;
 
 var playState = {
+    facultyTween : {},
+    pause_flag : false,
 
     create : function() {
         console.log("DEBUG: in play state");
@@ -111,7 +111,7 @@ var playState = {
 
         // if game is not 'paused' allow player movement/firing and enemy firing
         if (player.alive){
-            if (pause_flag === false) {
+            if (this.pause_flag === false) {
                 // move player around
                 if (cursors.left.isDown) {
                     player.body.velocity.x = -playerSpeed; // move sprite to left
@@ -211,10 +211,10 @@ var playState = {
 
         // make the faculty members move
         // x is how far faculty members move horizontally, y is vertically
-        facultyTween = game.add.tween(facultyMembers)
+        this.facultyTween = game.add.tween(facultyMembers)
             .to({ x: 200 }, interval, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
-        facultyTween.onRepeat.add(onLoop, this);
+        this.facultyTween.onRepeat.add(onLoop, this);
 
         function onLoop() {
             descendAmount = 15;
@@ -288,8 +288,8 @@ var playState = {
 
     //function to detect if player is hit
     playerCollision : function() {
-        pause_flag = true;
-        facultyTween.pause();
+        this.pause_flag = true;
+        this.facultyTween.pause();
         facultyBullets.killAll();
         bullets.killAll();
         lives.removeLife();
@@ -301,12 +301,13 @@ var playState = {
             player.kill();
             if (lives.getLives() === 0) {
                 bgmusic.stop();
+                this.pause_flag = false;
                 this.lose();
             }
             else {
                 this.createPlayer();
-                facultyTween.resume();
-                pause_flag = false;
+                this.facultyTween.resume();
+                this.pause_flag = false;
             }
         }, this);
     },

@@ -34,6 +34,11 @@ var loadState = {
         game.load.image('live', 'assets/sprites/live.png');
         game.load.spritesheet('explosion', 'assets/sprites/explosion.png', 32, 32, 6);
         game.load.spritesheet('blood', 'assets/sprites/blood_splatter_spritesheet.png', 128, 128, 9);
+        // load barrier sprites
+        game.load.image('barrier0', 'assets/sprites/barrier0.png');
+        game.load.image('barrier1', 'assets/sprites/barrier1.png');
+        game.load.image('barrier2', 'assets/sprites/barrier2.png');
+        game.load.image('barrier3', 'assets/sprites/barrier3.png');
         // load player bullets sprites
         game.load.image('bullet0', 'assets/sprites/bullet0.png');
         game.load.image('bullet1', 'assets/sprites/bullet1.png');

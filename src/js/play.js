@@ -9,7 +9,8 @@ var tweenCounter = 0;
 
 var playState = {
     facultyTween : {},
-    pause_flag : false,
+    pause_flag : true,
+    barrier : {},
 
     create : function() {
         console.log("DEBUG: in play state");
@@ -52,6 +53,15 @@ var playState = {
         // create player
         this.createPlayer();
 
+        // Create barrier
+        this.barrier = game.add.group();
+        this.barrier.enableBody = true;
+        this.barrier.physicsBodyType = Phaser.Physics.ARCADE;
+        this.barrier.x = 10;
+        for (let i = 0; i < 10; i++) {
+            this.barrier.create(i*80, 450, 'barrier0');
+        }
+
         //  create a bullet group for faculty members
         facultyBullets = game.add.group();
         facultyBullets.enableBody = true;
@@ -65,7 +75,7 @@ var playState = {
         facultyBullets.setAll('outOfBoundsKill', true);
         facultyBullets.setAll('checkWorldBounds', true);
 
-        //  Create faculty members
+        // Create faculty members
         facultyMembers = game.add.group();
         facultyMembers.enableBody = true;
         facultyMembers.physicsBodyType = Phaser.Physics.ARCADE;
@@ -136,6 +146,10 @@ var playState = {
             game.physics.arcade.overlap(bullets, facultyMembers, this.collisionHandler, null, this);
             // run collision detection for player character and faculty bullets
             game.physics.arcade.overlap(player, facultyBullets, this.playerCollision, null, this )
+            // run collision detection for player bullets and barrier
+            game.physics.arcade.overlap(this.barrier, bullets, this.barrierPlayerCollision, null, this )
+            // run collision detection for enemy bullets and barrier
+            game.physics.arcade.overlap(this.barrier, facultyBullets, this.barrierEnemyCollision, null, this )
 
         }
 
@@ -155,6 +169,8 @@ var playState = {
             bgmusic.stop();
             this.win();
         }
+
+        // Check to see if enemy has reached cut-off point to cause loss of game
     },
 
     // Continue to the 'win' state
@@ -310,6 +326,17 @@ var playState = {
                 this.pause_flag = false;
             }
         }, this);
+    },
+
+    //function to detect if barrier is hit by player bullet
+    barrierPlayerCollision : function(barrier, bullet) {
+        barrier.kill();
+        bullet.kill();
+    },
+
+    //function to detect if barrier is hit by enemy bullet - just call barrierPlayerCollision with faculty bullet
+    barrierEnemyCollision : function(barrier, facultyBullet) {
+        this.barrierPlayerCollision(barrier, facultyBullet);
     },
 
     createPlayer : function() {

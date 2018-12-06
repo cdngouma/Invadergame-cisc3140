@@ -6,14 +6,18 @@ that everyone has the concept of uploading and downloading:
 
 
 Graphics:
-+Michael Aleksa
 
++Michael Aleksa
 
 Backbone:
 +Chrys Ngouma
 
+
 Specs:
+
 +Daniel Yuen
 
+
 QA:
+
 +Devon Alleyne

@@ -1,0 +1,16 @@
+Backbone + Graphics:
+
++Michael Aleksa <mtaleksa1>
++Chrys Ngouma <ngouma.chrys@gmail.com>
++Kevin Wong <kewong>
++Domenic Kopec <megakopec>
++Kazi Nayeem <nayeem9i>
+
+Specs + QA:
+
++Daniel Yuen <Daniely>
++Devon Alleyne <DAlleyne97>
++Samanta Chowdhury <csamanta95>
++Wadd Sam <Waddy>
++ <DAlleyne97>
++ <KurosakiRei>

@@ -3,4 +3,4 @@ Adaptation of the classic <a href="https://en.wikipedia.org/wiki/Space_Invaders"
 
 ## Screenshot
 
-<img src="src/assets/screenshot.PNG" width="550"/>
+<img src="src/assets/screeenshot.PNG" width="550"/>
